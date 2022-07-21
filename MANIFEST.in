@@ -1,0 +1,7 @@
+include bmkcc/tenkit/*
+include bmkcc/cellranger/*
+include bmkcc/cellranger/webshim/*
+include bmkcc/cellranger/analysis/*
+include bmkcc/cellranger/rna/*
+include bmkcc/cellranger/webshim/constants/*
+
