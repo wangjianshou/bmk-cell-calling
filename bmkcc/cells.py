@@ -62,6 +62,7 @@ def barcode_umi_plot(counts_per_bc, raw_barcodes, cell_barcodes, basedir='.'):
                     engine='kaleido', scale=5)
     fig.write_image(os.path.join(basedir, 'rank_barcode_umi.pdf'),
                     engine='kaleido')
+    return fig
 
 def writeQC(matrix, basedir):
     Estimated_Number_of_Cells = matrix.get_shape()[1]
@@ -72,7 +73,7 @@ def writeQC(matrix, basedir):
          f'Median_Genes_per_Cell\t{Median_Genes_per_Cell}\n'
          f'Total_Genes_Detected\t{Total_Genes_Detected}\n'
          f'Median_UMI_Counts_per_Cell\t{Median_UMI_Counts_per_Cell}\n')
-    with open(os.path.join(basedir, 'qc.txt'), 'w') as f:
+    with open(os.path.join(basedir, 'filter_qc.txt'), 'w') as f:
         f.write(r)
 
 
