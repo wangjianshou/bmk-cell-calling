@@ -76,6 +76,16 @@ def writeQC(matrix, basedir):
     with open(os.path.join(basedir, 'filter_qc.txt'), 'w') as f:
         f.write(r)
 
+def cellQC(matrix):
+    r = {}
+    r['NumberofCells'] = matrix.get_shape()[1]
+    r['MedianGenes'] = int(np.median(matrix.get_numfeatures_per_bc()))
+    r['TotalGenesDetected'] = (matrix.get_counts_per_feature()>0).sum()
+    r['MedianUMICountsperCell'] = int(np.median(matrix.get_counts_per_bc()))
+    return r
+
+
+
 
 if __name__=='__main__':
     args = parseArgs()

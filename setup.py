@@ -30,10 +30,10 @@ except:
 
 setup(
     name='bmk-cell-calling',
-    vesion='v0.1',
+    vesion='v0.2',
     packages = ["bmkcc"],
     setup_requires = ['numpy'],
-    python_requires='>=3.9',
+    python_requires='>=3.8, <=3.9',
     install_requires = ['numpy >= 1.18, < 1.23', 'scipy', 'pandas', 'scikit-learn', 'h5py', 'setuptools >= 18.0',
                         'numexpr', 'tables', 'lz4', 'six', 'martian',
                         'plotly', 'kaleido', ],
