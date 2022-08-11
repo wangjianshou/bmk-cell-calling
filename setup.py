@@ -30,7 +30,7 @@ except:
 
 setup(
     name='bmk-cell-calling',
-    vesion='v0.2',
+    version='v0.2.0',
     packages = ["bmkcc"],
     setup_requires = ['numpy'],
     python_requires='>=3.8, <=3.9',

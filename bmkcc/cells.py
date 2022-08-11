@@ -46,7 +46,7 @@ def callcells(matrixDir, basedir, expect_cells):
                              save_feature, compress=True)
     return matrix, filtered_matrix
 
-def barcode_umi_plot(counts_per_bc, raw_barcodes, cell_barcodes, basedir='.'):
+def barcode_umi_plot(counts_per_bc, raw_barcodes, cell_barcodes):
     srt_order = compute_sort_order(counts_per_bc, raw_barcodes, cell_barcodes)
     sorted_bc = raw_barcodes[srt_order]
     sorted_counts = counts_per_bc[srt_order]
@@ -56,12 +56,6 @@ def barcode_umi_plot(counts_per_bc, raw_barcodes, cell_barcodes, basedir='.'):
                        yaxis={'type':'log', 'title':'UMI counts'},
                        width=800, height=600)
     fig =  go.Figure(plot_data, layout=layout)
-    fig.write_html(os.path.join(basedir, 'rank_barcode_umi.html'),
-                   config= {'displaylogo': False})
-    fig.write_image(os.path.join(basedir, 'rank_barcode_umi.png'),
-                    engine='kaleido', scale=5)
-    fig.write_image(os.path.join(basedir, 'rank_barcode_umi.pdf'),
-                    engine='kaleido')
     return fig
 
 def writeQC(matrix, basedir):
@@ -77,12 +71,12 @@ def writeQC(matrix, basedir):
         f.write(r)
 
 def cellQC(matrix):
-    r = {}
-    r['NumberofCells'] = matrix.get_shape()[1]
-    r['MedianGenes'] = int(np.median(matrix.get_numfeatures_per_bc()))
-    r['TotalGenesDetected'] = (matrix.get_counts_per_feature()>0).sum()
-    r['MedianUMICountsperCell'] = int(np.median(matrix.get_counts_per_bc()))
-    return r
+    qc = {}
+    qc['NumberofCells'] = matrix.get_shape()[1]
+    qc['MedianGenes'] = int(np.median(matrix.get_numfeatures_per_bc()))
+    qc['TotalGenesDetected'] = (matrix.get_counts_per_feature()>0).sum()
+    qc['MedianUMICountsperCell'] = int(np.median(matrix.get_counts_per_bc()))
+    return qc
 
 
 
@@ -96,6 +90,12 @@ if __name__=='__main__':
     cell_barcodes = filtered_matrix.bcs[:]
     counts_per_bc = matrix.get_counts_per_bc()
     raw_barcodes = matrix.bcs[:]
-    barcode_umi_plot(counts_per_bc, raw_barcodes, cell_barcodes, basedir)
+    fig = barcode_umi_plot(counts_per_bc, raw_barcodes, cell_barcodes)
+    fig.write_html(os.path.join(basedir, 'rank_barcode_umi.html'),
+                   config= {'displaylogo': False})
+    fig.write_image(os.path.join(basedir, 'rank_barcode_umi.png'),
+                    engine='kaleido', scale=5)
+    fig.write_image(os.path.join(basedir, 'rank_barcode_umi.pdf'),
+                    engine='kaleido')
     writeQC(filtered_matrix, basedir)
     print('completed!\n')
