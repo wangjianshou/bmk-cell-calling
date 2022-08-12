@@ -30,11 +30,11 @@ except:
 
 setup(
     name='bmk-cell-calling',
-    version='v0.2.1',
+    version='v0.2.2',
     packages = ["bmkcc"],
     setup_requires = ['numpy', 'Cython'],
     python_requires='>=3.8, <3.10',
-    install_requires = ['numpy >= 1.18, < 1.23', 'scipy', 'pandas', 'scikit-learn', 'h5py', 'setuptools >= 18.0',
+    install_requires = ['numpy >= 1.18', 'scipy', 'pandas', 'scikit-learn', 'h5py', 'setuptools >= 18.0',
                         'numexpr', 'tables', 'lz4', 'six', 'martian',
                         'plotly', 'kaleido', ],
     author = "Wang Jianshou",
